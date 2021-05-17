@@ -10,8 +10,9 @@ import java.lang.Exception
 import java.util.logging.Logger
 
 @RestController
-class FairController(@Autowired val fairService: FairService, val logger: Logger = Logger.getLogger("FairControllerLogger")) {
+class FairController(@Autowired val fairService: FairService) {
 
+    val logger: Logger = Logger.getLogger("FairControllerLogger")
 
     @PostMapping("/fair", consumes = ["application/json"])
     fun postFair(@RequestBody fairDto : FairDto) : ResponseEntity<Void> = try {
@@ -34,8 +35,8 @@ class FairController(@Autowired val fairService: FairService, val logger: Logger
 
     @PutMapping("/fair/{id}", consumes = ["application/json"])
     fun updateFair(@PathVariable id : Long, @RequestBody fair: FairDto) = try {
-        fairService.updateFair(id, fair)
-        ResponseEntity(null, HttpStatus.OK)
+        val isProcessed = fairService.updateFair(id, fair)
+        ResponseEntity(null, if(isProcessed) HttpStatus.OK else HttpStatus.BAD_REQUEST)
     } catch (e : Exception){
         logger.severe("Failure updating resource Fair: ${e.message}")
         ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)

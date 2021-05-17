@@ -50,6 +50,10 @@ class FairService(@Autowired val fairRepository: FairRepository) {
 
     fun updateFair(id: Long, fair: FairDto): Boolean {
 
+        if(fair.id.isNotBlank()){
+            return false
+        }
+
         logger.info("updating FairId: $id. Content: $fair")
 
         val fairEntity = fairRepository.findById(id)

@@ -3,8 +3,7 @@ package silveira.kildare.feira.livre.service
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import silveira.kildare.feira.livre.dto.FairDto
@@ -46,8 +45,7 @@ class FairServiceTest {
             regiao8 = fair.regiao8,
             regiao5 = fair.regiao5,
             subPrefe = fair.subPrefe,
-            codSubPref = fair.codSubPref,
-            id = fair.id.toLong()
+            codSubPref = fair.codSubPref
         )
 
         every{ fairRepository.save(expectedEntity)} returns expectedEntity
@@ -93,7 +91,7 @@ class FairServiceTest {
 
         val id = 1L
         val fairEntity = Optional.of(getFairEntity())
-        val fairDto = getFairList()[0]
+        val fairDto = getFairList()[0].copy(id = "")
 
         every{fairRepository.findById(id)} returns fairEntity
         every { fairRepository.save(any())} returns fairEntity.get()
@@ -115,11 +113,11 @@ class FairServiceTest {
         val bairro = "bairro"
 
         val fairs = listOf(
-            FairEntity(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira, bairro = bairro),
-            FairEntity(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira),
+            FairEntity(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira.toLowerCase(), bairro = bairro),
+            FairEntity(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira.toLowerCase()),
             FairEntity(distrito = distrito, regiao5 = regiao5, bairro = bairro),
-            FairEntity(regiao5 = regiao5, nomeFeira = nomeFeira, bairro = bairro),
-            FairEntity(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira, bairro = bairro),
+            FairEntity(regiao5 = regiao5, nomeFeira = nomeFeira.toLowerCase(), bairro = bairro),
+            FairEntity(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira.toLowerCase(), bairro = bairro),
             FairEntity()
             )
 
@@ -128,10 +126,21 @@ class FairServiceTest {
         val result = fairService.getFairs(distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira, bairro = bairro)
 
         assertTrue(result.size == 2)
-        assertEquals(FairDto(id ="0", distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira, bairro = bairro), result[0])
-        assertEquals(FairDto(id ="0", distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira, bairro = bairro), result[1])
+        assertEquals(FairDto(id ="0", distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira.toLowerCase(), bairro = bairro), result[0])
+        assertEquals(FairDto(id ="0", distrito = distrito, regiao5 = regiao5, nomeFeira = nomeFeira.toLowerCase(), bairro = bairro), result[1])
 
         verify { fairRepository.findAll()}
+    }
+
+    @Test
+    fun `should not allow update to current id`(){
+
+        val dto = FairDto(id = "2")
+
+        val fair = fairService.updateFair(1L, dto)
+
+        assertFalse(fair)
+
     }
 
 }

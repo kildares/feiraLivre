@@ -21,8 +21,7 @@ class FairControllerTest {
     @BeforeEach
     fun setUp() {
         fairService = mockk()
-        logger = Logger.getAnonymousLogger()
-        fairController = FairController(fairService, logger)
+        fairController = FairController(fairService)
     }
 
     @Test
@@ -76,6 +75,20 @@ class FairControllerTest {
         val result = fairController.updateFair(1, fair)
 
         assertEquals(result.statusCode, HttpStatus.OK)
+
+        verify { fairService.updateFair(any(), any()) }
+    }
+
+    @Test
+    fun `should return bad request when fairService returns false`(){
+
+        val fair = getFairList()[0]
+
+        every { fairService.updateFair(1, fair) } returns false
+
+        val result = fairController.updateFair(1, fair)
+
+        assertEquals(result.statusCode, HttpStatus.BAD_REQUEST)
 
         verify { fairService.updateFair(any(), any()) }
     }
