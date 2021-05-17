@@ -1,10 +1,14 @@
 package silveira.kildare.feira.livre.service
 
+import org.springframework.stereotype.Component
 import silveira.kildare.feira.livre.dto.FairDto
 import java.io.File
 import java.util.logging.Logger
 
-class FairCsvService(val logger: Logger) {
+@Component
+class FairCsvService {
+
+    val logger: Logger = Logger.getLogger("FairCsvService")
 
     fun parseFile(file: File): List<FairDto> {
 

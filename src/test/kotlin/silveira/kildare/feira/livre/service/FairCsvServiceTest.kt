@@ -1,11 +1,12 @@
 package silveira.kildare.feira.livre.service
 
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.context.event.ContextRefreshedEvent
 import silveira.kildare.feira.livre.mother.getFairList
 import java.io.File
-import java.util.logging.Logger
 
 class FairCsvServiceTest {
 
@@ -13,13 +14,13 @@ class FairCsvServiceTest {
 
     @BeforeEach
     fun setUp() {
-        fairCsvService = FairCsvService(Logger.getAnonymousLogger())
+        fairCsvService = FairCsvService()
     }
 
     @Test
     fun `should parse csv file DEINFO_AB_FEIRASLIVRES_2014`() {
 
-        val fileName = "UNIT_TEST_FILE.csv";
+        val fileName = "csvs/UNIT_TEST_FILE.csv";
 
         val file = File(javaClass.classLoader.getResource(fileName)!!.file)
 
