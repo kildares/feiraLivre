@@ -88,10 +88,10 @@ class FairService(@Autowired val fairRepository: FairRepository) {
         bairro: String?,
     ): List<FairDto> = fairRepository.findAll().filter {
         when {
-            distrito != null && it.distrito != distrito -> false
-            regiao5 != null && it.regiao5 != regiao5 -> false
-            nomeFeira != null && it.nomeFeira != nomeFeira -> false
-            bairro != null && it.bairro != bairro -> false
+            distrito != null && it.distrito != distrito.toLowerCase() -> false
+            regiao5 != null && it.regiao5 != regiao5.toLowerCase() -> false
+            nomeFeira != null && it.nomeFeira != nomeFeira.toLowerCase() -> false
+            bairro != null && it.bairro != bairro.toLowerCase() -> false
             else -> true
         }
     }.map {

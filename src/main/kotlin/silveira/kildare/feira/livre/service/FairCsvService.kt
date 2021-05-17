@@ -23,7 +23,7 @@ class FairCsvService {
         logger.info("Reading lines")
 
         while (line != null) {
-
+            logger.info("Line: $line")
             val split = line.split(',')
 
             fairDtos.add(

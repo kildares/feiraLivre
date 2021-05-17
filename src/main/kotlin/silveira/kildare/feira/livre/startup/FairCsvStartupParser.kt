@@ -1,4 +1,4 @@
-package silveira.kildare.feira.livre.listener
+package silveira.kildare.feira.livre.startup
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -31,19 +31,19 @@ class FairCsvStartupParser(
                     longitud = it.longitud,
                     lat = it.lat,
                     setcens = it.setcens,
-                    areap = it.areap,
-                    codDist = it.codDist,
-                    distrito = it.distrito,
-                    codSubPref = it.codSubPref,
-                    subPrefe = it.subPrefe,
-                    regiao5 = it.regiao5,
-                    regiao8 = it.regiao8,
-                    nomeFeira = it.nomeFeira,
-                    registro = it.registro,
-                    logradouro = it.logradouro,
-                    numero = it.numero,
-                    bairro = it.bairro,
-                    referencia = it.referencia
+                    areap = it.areap.toLowerCase(),
+                    codDist = it.codDist.toLowerCase(),
+                    distrito = it.distrito.toLowerCase(),
+                    codSubPref = it.codSubPref.toLowerCase(),
+                    subPrefe = it.subPrefe.toLowerCase(),
+                    regiao5 = it.regiao5.toLowerCase(),
+                    regiao8 = it.regiao8.toLowerCase(),
+                    nomeFeira = it.nomeFeira.toLowerCase(),
+                    registro = it.registro.toLowerCase(),
+                    logradouro = it.logradouro.toLowerCase(),
+                    numero = it.numero.toLowerCase(),
+                    bairro = it.bairro.toLowerCase(),
+                    referencia = it.referencia.toLowerCase()
                 )
             } ?: emptyList()
         )

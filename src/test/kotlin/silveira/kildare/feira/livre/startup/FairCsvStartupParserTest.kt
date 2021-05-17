@@ -1,4 +1,4 @@
-package silveira.kildare.feira.livre.listener
+package silveira.kildare.feira.livre.startup
 
 import io.mockk.every
 import io.mockk.mockk
