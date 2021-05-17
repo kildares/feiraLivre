@@ -18,7 +18,8 @@ class FairController(@Autowired val fairService: FairService, val logger: Logger
         fairService.addFair(fairDto)
         ResponseEntity(null, HttpStatus.OK)
     } catch (e : Exception){
-        logger.severe("Failure adding resource Fair: ${e.message}")
+        logger.severe("Failure adding resource Fair")
+        e.printStackTrace()
         ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 

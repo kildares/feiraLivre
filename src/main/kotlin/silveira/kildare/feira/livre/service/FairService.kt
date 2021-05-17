@@ -33,8 +33,7 @@ class FairService(@Autowired val fairRepository: FairRepository) {
                 regiao8 = fair.regiao8,
                 regiao5 = fair.regiao5,
                 subPrefe = fair.subPrefe,
-                codSubPref = fair.codSubPref,
-                id = fair.id.toLong()
+                codSubPref = fair.codSubPref
             )
         )
         return true
