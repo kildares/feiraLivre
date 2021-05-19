@@ -14,26 +14,30 @@ class FairService(@Autowired val fairRepository: FairRepository) {
 
     fun addFair(fair: FairDto): Boolean {
 
+        if (fair.hasInvalidParameters()) {
+            throw IllegalArgumentException()
+        }
+
         logger.info("persisting fairDto: $fair")
 
         fairRepository.save(
             FairEntity(
-                longitud = fair.longitud,
-                lat = fair.lat,
-                setcens = fair.setcens,
-                areap = fair.areap,
-                codDist = fair.codDist,
-                distrito = fair.distrito,
-                referencia = fair.referencia,
-                bairro = fair.bairro,
-                numero = fair.numero,
-                logradouro = fair.logradouro,
-                registro = fair.registro,
-                nomeFeira = fair.nomeFeira,
-                regiao8 = fair.regiao8,
-                regiao5 = fair.regiao5,
-                subPrefe = fair.subPrefe,
-                codSubPref = fair.codSubPref
+                longitud = fair.longitud!!,
+                lat = fair.lat!!,
+                setcens = fair.setcens!!,
+                areap = fair.areap!!,
+                codDist = fair.codDist!!,
+                distrito = fair.distrito!!,
+                referencia = fair.referencia!!,
+                bairro = fair.bairro!!,
+                numero = fair.numero!!,
+                logradouro = fair.logradouro!!,
+                registro = fair.registro!!,
+                nomeFeira = fair.nomeFeira!!,
+                regiao8 = fair.regiao8!!,
+                regiao5 = fair.regiao5!!,
+                subPrefe = fair.subPrefe!!,
+                codSubPref = fair.codSubPref!!
             )
         )
         return true
@@ -50,8 +54,8 @@ class FairService(@Autowired val fairRepository: FairRepository) {
 
     fun updateFair(id: Long, fair: FairDto): Boolean {
 
-        if(fair.id.isNotBlank()){
-            return false
+        if (fair.hasInvalidParameters()) {
+            throw IllegalArgumentException()
         }
 
         logger.info("updating FairId: $id. Content: $fair")
@@ -60,22 +64,22 @@ class FairService(@Autowired val fairRepository: FairRepository) {
         return if (fairEntity.isPresent) {
             fairRepository.save(
                 fairEntity.get().copy(
-                    longitud = fair.longitud,
-                    codSubPref = fair.codSubPref,
-                    subPrefe = fair.subPrefe,
-                    regiao5 = fair.regiao5,
-                    regiao8 = fair.regiao8,
-                    nomeFeira = fair.nomeFeira,
-                    registro = fair.registro,
-                    logradouro = fair.logradouro,
-                    numero = fair.numero,
-                    bairro = fair.bairro,
-                    referencia = fair.referencia,
-                    codDist = fair.codDist,
-                    areap = fair.areap,
-                    setcens = fair.setcens,
-                    distrito = fair.distrito,
-                    lat = fair.lat
+                    longitud = fair.longitud!!,
+                    codSubPref = fair.codSubPref!!,
+                    subPrefe = fair.subPrefe!!,
+                    regiao5 = fair.regiao5!!,
+                    regiao8 = fair.regiao8!!,
+                    nomeFeira = fair.nomeFeira!!,
+                    registro = fair.registro!!,
+                    logradouro = fair.logradouro!!,
+                    numero = fair.numero!!,
+                    bairro = fair.bairro!!,
+                    referencia = fair.referencia!!,
+                    codDist = fair.codDist!!,
+                    areap = fair.areap!!,
+                    setcens = fair.setcens!!,
+                    distrito = fair.distrito!!,
+                    lat = fair.lat!!
                 )
             )
             true
@@ -89,34 +93,40 @@ class FairService(@Autowired val fairRepository: FairRepository) {
         regiao5: String?,
         nomeFeira: String?,
         bairro: String?,
-    ): List<FairDto> = fairRepository.findAll().filter {
+    ): List<FairDto> =
         when {
-            distrito != null && it.distrito != distrito.toLowerCase() -> false
-            regiao5 != null && it.regiao5 != regiao5.toLowerCase() -> false
-            nomeFeira != null && it.nomeFeira != nomeFeira.toLowerCase() -> false
-            bairro != null && it.bairro != bairro.toLowerCase() -> false
-            else -> true
-        }
-    }.map {
-        FairDto(
-            distrito = it.distrito,
-            longitud = it.longitud,
-            lat = it.lat,
-            setcens = it.setcens,
-            areap = it.areap,
-            codDist = it.codDist,
-            codSubPref = it.codSubPref,
-            subPrefe = it.subPrefe,
-            regiao5 = it.regiao5,
-            regiao8 = it.regiao8,
-            nomeFeira = it.nomeFeira,
-            registro = it.registro,
-            logradouro = it.logradouro,
-            numero = it.numero,
-            bairro = it.bairro,
-            referencia = it.referencia,
-            id = it.id.toString()
+            distrito.isNullOrBlank() && regiao5.isNullOrBlank() && nomeFeira.isNullOrBlank() && bairro.isNullOrBlank() -> throw IllegalArgumentException()
+            else -> {
+                fairRepository.findAll().filter {
+                    when {
+                        !distrito.isNullOrBlank() &&it.distrito != distrito.toLowerCase() -> false
+                        !regiao5.isNullOrBlank() && it.regiao5 != regiao5.toLowerCase() -> false
+                        !nomeFeira.isNullOrBlank() && it.nomeFeira != nomeFeira.toLowerCase() -> false
+                        !bairro.isNullOrBlank() && it.bairro != bairro.toLowerCase() -> false
+                        else -> true
+                    }
+                }
+            }
+        }.map {
+            FairDto(
+                distrito = it.distrito,
+                longitud = it.longitud,
+                lat = it.lat,
+                setcens = it.setcens,
+                areap = it.areap,
+                codDist = it.codDist,
+                codSubPref = it.codSubPref,
+                subPrefe = it.subPrefe,
+                regiao5 = it.regiao5,
+                regiao8 = it.regiao8,
+                nomeFeira = it.nomeFeira,
+                registro = it.registro,
+                logradouro = it.logradouro,
+                numero = it.numero,
+                bairro = it.bairro,
+                referencia = it.referencia,
+                id = it.id.toString()
             )
-    }
+        }
 
 }

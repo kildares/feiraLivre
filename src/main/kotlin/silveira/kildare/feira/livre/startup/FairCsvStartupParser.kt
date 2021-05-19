@@ -28,22 +28,22 @@ class FairCsvStartupParser(
                 fairCsvService.parseFile(it)
             }?.flatten()?.map {
                 FairEntity(
-                    longitud = it.longitud,
-                    lat = it.lat,
-                    setcens = it.setcens,
-                    areap = it.areap.toLowerCase(),
-                    codDist = it.codDist.toLowerCase(),
-                    distrito = it.distrito.toLowerCase(),
-                    codSubPref = it.codSubPref.toLowerCase(),
-                    subPrefe = it.subPrefe.toLowerCase(),
-                    regiao5 = it.regiao5.toLowerCase(),
-                    regiao8 = it.regiao8.toLowerCase(),
-                    nomeFeira = it.nomeFeira.toLowerCase(),
-                    registro = it.registro.toLowerCase(),
-                    logradouro = it.logradouro.toLowerCase(),
-                    numero = it.numero.toLowerCase(),
-                    bairro = it.bairro.toLowerCase(),
-                    referencia = it.referencia.toLowerCase()
+                    longitud = it.longitud ?: "",
+                    lat = it.lat ?: "",
+                    setcens = it.setcens ?: "",
+                    areap = it.areap?.toLowerCase() ?: "",
+                    codDist = it.codDist?.toLowerCase() ?: "",
+                    distrito = it.distrito?.toLowerCase() ?: "",
+                    codSubPref = it.codSubPref?.toLowerCase() ?: "",
+                    subPrefe = it.subPrefe?.toLowerCase() ?: "",
+                    regiao5 = it.regiao5?.toLowerCase() ?: "",
+                    regiao8 = it.regiao8?.toLowerCase() ?: "",
+                    nomeFeira = it.nomeFeira?.toLowerCase() ?: "",
+                    registro = it.registro?.toLowerCase() ?: "",
+                    logradouro = it.logradouro?.toLowerCase() ?: "",
+                    numero = it.numero?.toLowerCase() ?: "",
+                    bairro = it.bairro?.toLowerCase() ?: "",
+                    referencia = it.referencia?.toLowerCase() ?: ""
                 )
             } ?: emptyList()
         )

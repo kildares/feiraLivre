@@ -80,3 +80,24 @@ fun getFairList()= listOf(
         referencia = ""
     )
 )
+
+
+fun getValidFairDto() =  FairDto(
+    id = null,
+    longitud = "-46550164",
+    lat = "-23558733",
+    setcens = "355030885000091",
+    areap = "3550308005040",
+    codDist = "87",
+    distrito = "VILA FORMOSA",
+    codSubPref = "26",
+    subPrefe = "ARICANDUVA-FORMOSA-CARRAO",
+    regiao5 = "Leste",
+    regiao8 = "Leste 1",
+    nomeFeira = "VILA FORMOSA",
+    registro = "4041-0",
+    logradouro = "RUA MARAGOJIPE",
+    numero = "S/N",
+    bairro = "VL FORMOSA",
+    referencia = "TV RUA PRETORIA"
+)
