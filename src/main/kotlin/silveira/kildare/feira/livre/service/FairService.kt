@@ -10,6 +10,7 @@ import java.util.logging.Logger
 @Service
 class FairService(@Autowired val fairRepository: FairRepository) {
 
+
     val logger: Logger = Logger.getLogger("FairServiceLogger")!!
 
     fun addFair(fair: FairDto): Boolean {
@@ -22,22 +23,22 @@ class FairService(@Autowired val fairRepository: FairRepository) {
 
         fairRepository.save(
             FairEntity(
-                longitud = fair.longitud!!,
-                lat = fair.lat!!,
-                setcens = fair.setcens!!,
-                areap = fair.areap!!,
-                codDist = fair.codDist!!,
-                distrito = fair.distrito!!,
-                referencia = fair.referencia!!,
-                bairro = fair.bairro!!,
-                numero = fair.numero!!,
-                logradouro = fair.logradouro!!,
-                registro = fair.registro!!,
-                nomeFeira = fair.nomeFeira!!,
-                regiao8 = fair.regiao8!!,
-                regiao5 = fair.regiao5!!,
-                subPrefe = fair.subPrefe!!,
-                codSubPref = fair.codSubPref!!
+                longitud = fair.longitud!!.toLowerCase(),
+                lat = fair.lat!!.toLowerCase(),
+                setcens = fair.setcens!!.toLowerCase(),
+                areap = fair.areap!!.toLowerCase(),
+                codDist = fair.codDist!!.toLowerCase(),
+                distrito = fair.distrito!!.toLowerCase(),
+                referencia = fair.referencia!!.toLowerCase(),
+                bairro = fair.bairro!!.toLowerCase(),
+                numero = fair.numero!!.toLowerCase(),
+                logradouro = fair.logradouro!!.toLowerCase(),
+                registro = fair.registro!!.toLowerCase(),
+                nomeFeira = fair.nomeFeira!!.toLowerCase(),
+                regiao8 = fair.regiao8!!.toLowerCase(),
+                regiao5 = fair.regiao5!!.toLowerCase(),
+                subPrefe = fair.subPrefe!!.toLowerCase(),
+                codSubPref = fair.codSubPref!!.toLowerCase()
             )
         )
         return true
@@ -100,9 +101,9 @@ class FairService(@Autowired val fairRepository: FairRepository) {
                 fairRepository.findAll().filter {
                     when {
                         !distrito.isNullOrBlank() &&it.distrito != distrito.toLowerCase() -> false
-                        !regiao5.isNullOrBlank() && it.regiao5 != regiao5.toLowerCase() -> false
-                        !nomeFeira.isNullOrBlank() && it.nomeFeira != nomeFeira.toLowerCase() -> false
-                        !bairro.isNullOrBlank() && it.bairro != bairro.toLowerCase() -> false
+                        !regiao5.isNullOrBlank() && it.regiao5.toLowerCase() != regiao5.toLowerCase() -> false
+                        !nomeFeira.isNullOrBlank() && it.nomeFeira.toLowerCase() != nomeFeira.toLowerCase() -> false
+                        !bairro.isNullOrBlank() && it.bairro.toLowerCase() != bairro.toLowerCase() -> false
                         else -> true
                     }
                 }
