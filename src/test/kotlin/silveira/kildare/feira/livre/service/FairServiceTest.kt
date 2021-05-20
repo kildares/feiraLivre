@@ -31,22 +31,22 @@ class FairServiceTest {
         val fair = getValidFairDto()
 
         val expectedEntity = FairEntity(
-            longitud = fair.longitud!!,
-            lat = fair.lat!!,
-            setcens = fair.setcens!!,
-            areap = fair.areap!!,
-            codDist = fair.codDist!!,
-            distrito = fair.distrito!!,
-            referencia = fair.referencia!!,
-            bairro = fair.bairro!!,
-            numero = fair.numero!!,
-            logradouro = fair.logradouro!!,
-            registro = fair.registro!!,
-            nomeFeira = fair.nomeFeira!!,
-            regiao8 = fair.regiao8!!,
-            regiao5 = fair.regiao5!!,
-            subPrefe = fair.subPrefe!!,
-            codSubPref = fair.codSubPref!!
+            longitud = fair.longitud!!.toLowerCase(),
+            lat = fair.lat!!.toLowerCase(),
+            setcens = fair.setcens!!.toLowerCase(),
+            areap = fair.areap!!.toLowerCase(),
+            codDist = fair.codDist!!.toLowerCase(),
+            distrito = fair.distrito!!.toLowerCase(),
+            referencia = fair.referencia!!.toLowerCase(),
+            bairro = fair.bairro!!.toLowerCase(),
+            numero = fair.numero!!.toLowerCase(),
+            logradouro = fair.logradouro!!.toLowerCase(),
+            registro = fair.registro!!.toLowerCase(),
+            nomeFeira = fair.nomeFeira!!.toLowerCase(),
+            regiao8 = fair.regiao8!!.toLowerCase(),
+            regiao5 = fair.regiao5!!.toLowerCase(),
+            subPrefe = fair.subPrefe!!.toLowerCase(),
+            codSubPref = fair.codSubPref!!.toLowerCase()g
         )
 
         every { fairRepository.save(expectedEntity) } returns expectedEntity
